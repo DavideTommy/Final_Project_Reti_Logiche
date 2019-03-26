@@ -1,0 +1,19 @@
+- Lichinchi Federico
+- Lorenzi Davide
+STATI FSM PROGETTO RETI LOGICHE:
+ - s0 -> idle: stato di pronto. Aspetta il segnale di start, non è partita l'elaborazione.
+ - s1 -> start: viene ricevuto il segnale di start a 1, vengono settati i parametri per la lettura di Xp del centroide da considerare.
+ - s2 -> Xp letto: viene salvato Xp in un segnale (unsigned o vector?), vengono settati i parametri per la lettura di Yp del centroide da considerare.
+ - s3 -> Yp letto: viene salvato Yp in un segnale (unsigned o vector?), vengono settati i parametri per la lettura della BitMask.
+ - s4 -> BitMask letta: viene salvata la BitMask in un segnale (vector), vengono settati i parametri per la lettura del Xo del centroide considerato (entra in gioco 
+ il contatore).
+ La lettura dei centroidi viene fatta utilizzando un contatore che viene incrementato, così da leggere man mano tutte le coordinate dei centroidi (16 - da 1 a 16).
+ - s5 -> Xo letto: viene salvato Xo in un segnale (unsigned o vector?), vengono settati i parametri per la lettura del Yo del centroide considerato (anche contatore).
+ - s6 -> Yo letto: viene salvato Yo in un segnale (unsigned o vector?), viene calcolata la distanza tra O e P e viene confrontata questa con la minima (segnale unsigned). Se la distanza 
+ appena calcolata è inferiore viene salvata come distanza minima finora trovata. Viene salvato in un segnale vector (vettori di unsigned - vector di vector) la distanza 
+ trovata. Vengono settati i parametri per la lettura del Xo del centroide successivo, se il contatore non è ancora a 17; se il contatore arriva a 17 abbiamo letto tutte le distanze.
+ - s7 -> Letto tutte le distanze: facciamo i calcoli, se bitmask(i) è 0 allora metto 0 nel vector di uscita, altrimenti se distances(i) è uguale a min_distance metto 1, se no 0.
+ Setto i parametri per terminare l'elaborazione.
+ - s8 -> Fine elaborazione: setto done a 0, aspetto un start a 0. Appena questo avviene, ritorno a s0, in cui inizializza i parametri per iniziare una nuova elaborazione.
+ - s9 -> Stato di WAIT: si aspetta, dopo aver inviato la richiesta alla RAM, del dato in uscita, quindi si aspetta un altro fronte di clock per poter aver il dato richiesto in 
+ i_data

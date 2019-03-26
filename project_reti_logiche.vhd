@@ -57,71 +57,106 @@ entity project_reti_logiche is
 end project_reti_logiche;
 
 architecture Behavioral of project_reti_logiche is
-    signal bit_mask : std_logic_vector(7 downto 0);
-    signal x_p : std_logic_vector(7 downto 0);
-    signal y_p : std_logic_vector(7 downto 0);
-    type d_array is array (63 downto 0) of std_logic_vector(7 downto 0);
-    signal distances : d_array;
-    signal x_tmp : std_logic_vector(7 downto 0);
-    signal y_tmp : std_logic_vector(7 downto 0);
+    type STATO is ( RST, S0, S1, S2, S3, S4, S5, S6, S7, S8 );
+    type D_ARRAY is array (63 downto 0) of std_logic_vector(8 downto 0);
+    signal PS, NS, PRS : STATO;
+    signal Y : std_logic_vector (7 downto 0);
+    signal Yp, Xp : unsigned;
+    signal Yo, Xo : unsigned;
+    signal bitMask : std_logic_vector(7 downto 0);
+    signal distances : D_ARRAY;
     signal min_distance : unsigned;
-    signal count : integer;
-    signal bit_cons : std_logic;
-begin 
-    process(i_clk)
-    begin
-        x_p <= "00000000";
-        y_p <= "00000000";
-        o_done <= '0';
-        o_en <= '1';
-        o_we <= '0';
-        o_address <= "0000000000010001";
-        while x_p = "0000000" loop
-            if rising_edge(i_clk) then
-                x_p <= i_data;
-            end if;
-        end loop;
-        o_address <= "0000000000010010"; 
-        while y_p = "0000000" loop
-            if rising_edge(i_clk) then
-                y_p <= i_data;
-            end if;
-        end loop;
-        count <= 8;
-        for i in 0 to 16 loop
-            o_address <= std_logic_vector(to_unsigned(i,16));
-            if i > 0 then
-                bit_cons <= bit_mask(count);
-                if i mod 2 > 0 then
-                    if bit_cons = '0' then
-                        x_tmp <= "11111111";
-                    else
-                        x_tmp <= std_logic_vector(to_unsigned(0,8));
-                        while x_tmp = "00000000" loop
-                            if rising_edge(i_clk) then
-                                x_tmp <= i_data;
-                            end if;
-                        end loop;
-                    end if;
+    signal counter : integer := 1;
+begin
+    delta_lambda : process( PS, PRS )
+        begin
+        case PS is
+            when RST =>
+                o_address <= (others => '0');
+                o_done <= '0';
+                o_en <= '0';
+                o_we <= '0';
+                o_data <= (others => '0');
+                NS <= S0;
+            when S0 =>
+                o_en <= '0';
+                o_we <= '0';
+                if(i_start = '1') then
+                    o_address <= (4 => '1', 0 => '1', others => '0');
+                    NS <= S8;
+                    PRS <= S1;
                 else
-                    if bit_cons = '0' then
-                        y_tmp <= "11111111";
-                    else
-                        y_tmp <= std_logic_vector(to_unsigned(0,8));
-                        while y_tmp = "00000000" loop
-                            if rising_edge(i_clk) then
-                                y_tmp <= i_data;
-                            end if;
-                        end loop;
-                    end if;
-                    -- CALCOLI LA DISTANZA -> CONFRONTI CON LA DISTANZA MINIMA -> SALVATAGGIO DELLA DISTANZA NELL'ARRAY
-                    count <= count - 1;
+                    NS <= S0;
                 end if;
-            else
-                bit_mask <= i_data;
-            end if;
-        end loop;
-        -- CONFRONTI OGNI ELEMENTO DELLE DISTANZE CON LA DISTANZA -> SALVI I '0' E '1' NELL'ARRAY DI USCITA (BYTE DI USCITA)
-        -- SETTO I VALORI PER INTERROGARE NELLA SCRITTURA DELLA MEMORIA -> SETTO DONE A 1 -> ....
+            when S1 =>
+                Xo <= unsigned(i_data);
+                o_en <= '0';
+                o_we <= '0';
+                o_address <= (4 => '1', 1 => '1', others => '0');
+                NS <= S8;
+                PRS <= S2;
+            when S2 =>
+                Yo <= unsigned(i_data);
+                o_en <= '0';
+                o_we <= '0';
+                o_address <= (others => '0');
+                NS <= S8;
+                PRS <= S3;
+            when S3 =>
+                bitMask <= i_data;
+                o_en <= '0';
+                o_we <= '0';
+                o_address <= std_logic_vector(to_unsigned(counter,8));
+                NS <= S8;
+                PRS <= S4;
+            when S4 =>
+                Xp <= unsigned(i_data);
+                counter <= counter + 1;
+                o_en <= '0';
+                o_we <= '0';
+                o_address <= std_logic_vector(to_unsigned(counter,8));
+                NS <= S8;
+                PRS <= S5;
+            when S5 =>
+                Yp <= unsigned(i_data);
+                counter <= counter + 1;
+                o_en <= '0';
+                o_we <= '0';
+                -- Controllo bit nella mask,distanze, memorizzazione distanza minima, calcolo distanza Manhattan...
+                o_address <= std_logic_vector(to_unsigned(counter,8));
+                if(counter = 17) then
+                    NS <= S6;
+                else
+                    NS <= S8;
+                end if;
+            when S6 =>
+                -- Faccio i calcoli di uguaglianza, costruisco il mio vettore di uscita, passo alla scrittura in uscita e vado in S9, da S9 poi passerò a S7
+            when S7 => 
+                -- Setto un done a 1, e aspetto che start torni a 0 per poter tornare a S0 nel prossimo ciclo di clock, altrimenti rimango in questo stato.               
+            when S8 =>
+                o_en <= '1';
+                o_we <= '0';
+                NS <= PRS;
+        end case;
     end process;
+    state: process( i_clk )
+        begin
+        if( i_clk'event and i_clk = '1' ) then
+            if( i_rst = '1' ) then
+                PS <= RST;
+            else
+                PS <= NS;
+            end if;
+        end if;
+    end process;    
+    output: process( i_clk )
+        begin
+        if( i_clk'event and i_clk = '1' ) then
+            if( i_rst = '1' ) then
+                o_data <= (others => '0');
+            else
+                o_data <= Y;
+            end if;
+        end if;
+    end process; 
 end Behavioral;
