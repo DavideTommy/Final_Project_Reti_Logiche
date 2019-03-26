@@ -58,15 +58,18 @@ end project_reti_logiche;
 
 architecture Behavioral of project_reti_logiche is
     type STATO is ( RST, S0, S1, S2, S3, S4, S5, S6, S7, S8 );
-    type D_ARRAY is array (63 downto 0) of std_logic_vector(8 downto 0);
+    type D_ARRAY is array (63 downto 0) of std_logic_vector(7 downto 0);
     signal PS, NS, PRS : STATO;
-    signal Y : std_logic_vector (7 downto 0);
+    signal Y_out : std_logic_vector (7 downto 0);
     signal Yp, Xp : unsigned;
     signal Yo, Xo : unsigned;
+    signal Ydiff, Xdiff : unsigned;
     signal bitMask : std_logic_vector(7 downto 0);
     signal distances : D_ARRAY;
-    signal min_distance : unsigned;
+    signal min_distance : unsigned := to_unsigned(255,8);
+    signal dist_tmp : unsigned;
     signal counter : integer := 1;
+    signal counter2 : integer := 7;
 begin
     delta_lambda : process( PS, PRS )
         begin
@@ -74,12 +77,12 @@ begin
             when RST =>
                 o_address <= (others => '0');
                 o_done <= '0';
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
                 o_data <= (others => '0');
                 NS <= S0;
             when S0 =>
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
                 if(i_start = '1') then
                     o_address <= (4 => '1', 0 => '1', others => '0');
@@ -90,21 +93,21 @@ begin
                 end if;
             when S1 =>
                 Xo <= unsigned(i_data);
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
                 o_address <= (4 => '1', 1 => '1', others => '0');
                 NS <= S8;
                 PRS <= S2;
             when S2 =>
                 Yo <= unsigned(i_data);
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
                 o_address <= (others => '0');
                 NS <= S8;
                 PRS <= S3;
             when S3 =>
                 bitMask <= i_data;
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
                 o_address <= std_logic_vector(to_unsigned(counter,8));
                 NS <= S8;
@@ -112,7 +115,7 @@ begin
             when S4 =>
                 Xp <= unsigned(i_data);
                 counter <= counter + 1;
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
                 o_address <= std_logic_vector(to_unsigned(counter,8));
                 NS <= S8;
@@ -120,9 +123,28 @@ begin
             when S5 =>
                 Yp <= unsigned(i_data);
                 counter <= counter + 1;
-                o_en <= '0';
+                o_en <= '1';
                 o_we <= '0';
-                -- Controllo bit nella mask,distanze, memorizzazione distanza minima, calcolo distanza Manhattan...
+                if bitMask(counter2) = '0' then
+                    distances(counter2) <= (others => '1');
+                else
+                    if Yo > Yp then
+                        Ydiff <= Yo - Yp;
+                    else 
+                        Ydiff <= Yp - Yo;
+                    end if;
+                    if Xo > Xp then
+                        Xdiff <= Xo - Xp;
+                    else 
+                        Xdiff <= Xp - Xo;
+                    end if;
+                    dist_tmp <= Xdiff + Ydiff;
+                    if dist_tmp < min_distance then
+                        min_distance <= dist_tmp;
+                    end if;
+                    distances(counter2) <= std_logic_vector(dist_tmp);
+                end if; 
+                counter2 <= counter2 - 1;
                 o_address <= std_logic_vector(to_unsigned(counter,8));
                 if(counter = 17) then
                     NS <= S6;
@@ -130,6 +152,20 @@ begin
                     NS <= S8;
                 end if;
             when S6 =>
+                for i in 0 to 7 loop
+                    dist_tmp <= unsigned(distances(i));
+                    if dist_tmp = min_distance then
+                       Y_out(i) <= '1';
+                    else
+                        Y_out(i) <= '0';
+                    end if; 
+                end loop;
+                o_en <= '1';
+                o_we <= '1';
+                o_address <= (4 => '1', 1 => '1', 0 => '1', others => '0');
+                o_data <= Y_out;
+                NS <= S8;
+                PRS <= S7;
                 -- Faccio i calcoli di uguaglianza, costruisco il mio vettore di uscita, passo alla scrittura in uscita e vado in S9, da S9 poi passerò a S7
             when S7 => 
                 -- Setto un done a 1, e aspetto che start torni a 0 per poter tornare a S0 nel prossimo ciclo di clock, altrimenti rimango in questo stato.               
