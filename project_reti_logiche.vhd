@@ -180,6 +180,12 @@ begin
                 o_en <= '0';
                 o_address <= (others => '0');
                 PRS <= S7;
+                if i_start = '0' then
+                    o_done <= '0';
+                    NS <= RST;
+                else                     
+                    NS <= S7;
+                end if;
                 -- Setto un done a 1, e aspetto che start torni a 0 per poter tornare a S0 nel prossimo ciclo di clock, altrimenti rimango in questo stato.               
             when S8 =>
                 o_address <= std_logic_vector(to_unsigned(counter,16));
