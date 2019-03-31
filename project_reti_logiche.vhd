@@ -58,39 +58,38 @@ end project_reti_logiche;
 
 architecture Behavioral of project_reti_logiche is
     type STATO is ( RST, S0, S1, S2, S3, S4, S5, S6, S7, S8 );
-    type D_ARRAY is array (63 downto 0) of std_logic_vector(7 downto 0);
+    type D_ARRAY is array (8191 downto 0) of unsigned(9 downto 0);
     signal PS, NS, PRS, PRS_prev : STATO;
-    signal Y_out, Y_out_prev : std_logic_vector (7 downto 0);
-    signal Yp, Yp_prev, Xp, Xp_prev : unsigned (7 downto 0);
-    signal Yo, Yo_prev, Xo, Xo_prev : unsigned (7 downto 0);
-    signal Ydiff, Xdiff, Ydiff_prev, Xdiff_prev : unsigned (7 downto 0);
+    signal Y_out : std_logic_vector (7 downto 0);
+    signal Yp, Xp, Xp_prev : unsigned (9 downto 0);
+    signal Yo, Xo, Yo_prev, Xo_prev : unsigned (9 downto 0);
+    signal Ydiff, Xdiff : unsigned (9 downto 0);
     signal bitMask, bitMask_prev : std_logic_vector(7 downto 0) := (others => '0');
-    signal distances, distances_prev : D_ARRAY;
-    signal min_distance, min_distance_prev : unsigned := to_unsigned(255,8);
-    signal dist_tmp, dist_tmp_prev : unsigned (7 downto 0);
-    signal counter, counter_prev, counter2, counter2_prev : integer := 1;
+    signal distances : D_ARRAY := (others => to_unsigned(520,10));
+    signal min_distance,min_distance_prev : unsigned := to_unsigned(520,10);
+    signal dist_tmp : unsigned (9 downto 0);
+    signal counter,counter_prev : integer := 1;
+    signal counter2,counter2_prev : integer := 7;
 begin
-    delta_lambda : process( PS, PRS, PRS_prev, i_start, i_data, bitMask, Yo, Xo, Yp, Xp, Ydiff, Xdiff, dist_tmp,
-    min_distance, distances, Y_out, counter, counter2, counter_prev, counter2_prev, distances_prev,
-    min_distance_prev, dist_tmp_prev, bitMask_prev, Ydiff_prev, Xdiff_prev, Y_out_prev, Xp_prev, Yp_prev,
-    Xo_prev, Yo_prev )
+    delta_lambda : process( PS, PRS, i_start, i_data, bitMask, Yo, Xo, Yp, Xp, Ydiff, Xdiff, dist_tmp,
+    min_distance, distances, Y_out, counter, counter2,
+    counter_prev, counter2_prev, min_distance_prev, Xp_prev, Xo_prev, Yo_prev, bitMask_prev, PRS_prev )
         begin
-        Xo <= Xo_prev;
-        Xp <= Xp_prev;
-        Yo <= Yo_prev;
-        Yp <= Yp_prev;
-        Y_out <= Y_out_prev;
-        Ydiff <= Ydiff_prev;
-        Xdiff <= Xdiff_prev;
-        bitMask <= bitMask_prev;
-        dist_tmp <= dist_tmp_prev;
-        min_distance <= min_distance_prev;
-        counter <= counter_prev;
-        --distances <= distances_prev;
-        counter2 <= counter2_prev;
-	    PRS <= PRS_prev;
         NS <= PS;
+        PRS <= PRS_prev;
+        counter <= counter_prev;
+        bitMask <= bitMask_prev;
+        counter2 <= counter2_prev;
+        Xo <= Xo_prev;
+        Yo <= Yo_prev;
+        Xp <= Xp_prev;
+        min_distance <= min_distance_prev;
+        Yp <= (others => '0');
+        Xdiff <= (others => '0');
+        Ydiff <= (others => '0');
+        dist_tmp <= (others => '0');
         o_data <= (others => '0');
+        Y_out <= (others => '0');
         o_done <= '0';
         o_en <= '1';
         o_we <= '0';
@@ -99,6 +98,9 @@ begin
                 o_address <= (others => '0');
                 o_data <= (others => '0');
                 NS <= S0;
+                PRS <= S0;
+                counter <= 1;
+                counter2 <= 7;
             when S0 =>
                 if(i_start = '1') then
                     o_address <= (4 => '1', 0 => '1', others => '0');
@@ -106,15 +108,16 @@ begin
                     PRS <= S1;
                 else
                     o_address <= (others => '0');
+                    PRS <= S0;
                 end if;
             when S1 =>
                 o_address <= (4 => '1', 1 => '1', others => '0');
-                Xo <= unsigned(i_data);
+                Xo <= unsigned("00" & i_data);
                 NS <= S8;
                 PRS <= S2;
             when S2 =>
                 o_address <= (others => '0');
-                Yo <= unsigned(i_data);
+                Yo <= unsigned("00" & i_data);
                 NS <= S8;
                 PRS <= S3;
             when S3 =>
@@ -125,16 +128,16 @@ begin
             when S4 =>
                 counter <= counter + 1;
                 o_address <= std_logic_vector(to_unsigned(counter,16));
-                Xp <= unsigned(i_data);
+                Xp <= unsigned("00" & i_data);
                 NS <= S8;
                 PRS <= S5;
             when S5 =>
                 counter <= counter + 1;
+                counter2 <= counter2-1;
                 o_address <= std_logic_vector(to_unsigned(counter,16));
-                Yp <= unsigned(i_data);
-                if bitMask(counter2) = '0' then
-                    distances(counter2) <= (others => '1');
-                else
+                Yp <= unsigned("00" & i_data);
+                dist_tmp <= to_unsigned(520,10);
+                if bitMask(counter2) = '1' then
                     if Yo > Yp then
                         Ydiff <= Yo - Yp;
                     else 
@@ -149,9 +152,8 @@ begin
                     if dist_tmp < min_distance then
                         min_distance <= dist_tmp;
                     end if;
-                    distances(counter2) <= std_logic_vector(dist_tmp);
                 end if; 
-                counter2 <= counter2 - 1;
+                distances(8-counter/2) <= dist_tmp;
                 if counter = 17 then
                     NS <= S6;
                     PRS <= S6;
@@ -164,11 +166,11 @@ begin
                 counter <= 19;
                 o_address <= (4 => '1', 1 => '1', 0 => '1', others => '0');
                 for i in 0 to 7 loop
-                    dist_tmp <= unsigned(distances(i));
+                    dist_tmp <= distances(i);
                     if dist_tmp = min_distance then
                        Y_out(i) <= '1';
                     else
-                        Y_out(i) <= '0';
+                       Y_out(i) <= '0';
                     end if; 
                 end loop;
                 o_data <= Y_out;
@@ -194,47 +196,20 @@ begin
     end process;
     state: process( i_clk )
         begin
-        if( i_clk'event and i_clk = '1' ) then
-            if( i_rst = '1' ) then
+        if i_clk'event and i_clk = '1'  then
+            if i_rst = '1' then
                 PS <= RST;
             else
                 PS <= NS;
+                counter_prev <= counter;
+                counter2_prev <= counter2;
+                Xp_prev <= Xp;
+                Xo_prev <= Xo;
+                Yo_prev <= Yo;
+                bitMask_prev <= bitMask;
+                PRS_prev <= PRS;
+                min_distance_prev <= min_distance;
             end if;
         end if;
-    end process;    
-    signal_state: process( i_clk )
-        begin
-        if( i_clk'event and i_clk = '1' ) then
-            if( i_rst = '1' ) then
-		        PRS_prev <= S0;
-		        counter_prev <= 1;
-		        counter2_prev <= 1;
-		        --distances_prev <= (others => (others => '0'));
-		        min_distance_prev <= (others => '0');
-		        dist_tmp_prev <= (others => '0');
-		        bitMask_prev <= (others => '0');
-		        Ydiff_prev <= (others => '0');
-		        Xdiff_prev <= (others => '0');
-		        Y_out_prev <= (others => '0');
-		        Xo_prev <= (others => '0');
-		        Xp_prev <= (others => '0');
-		        Yo_prev <= (others => '0');
-		        Yp_prev <= (others => '0');
-            else
-		        PRS_prev <= PRS;
-		        --distances_prev <= distances;
-		        counter_prev <= counter;
-		        counter2_prev <= counter2;
-		        min_distance_prev <= min_distance;
-		        dist_tmp_prev <= dist_tmp;
-		        Ydiff_prev <= Ydiff;
-		        Xdiff_prev <= Xdiff;
-		        Y_out_prev <= Y_out;
-		        Xo_prev <= Xo;
-		        Xp_prev <= Xp;
-		        Yo_prev <= Yo;
-		        Yp_prev <= Yp;
-            end if;
-        end if;
-    end process; 
+    end process;
 end Behavioral;
