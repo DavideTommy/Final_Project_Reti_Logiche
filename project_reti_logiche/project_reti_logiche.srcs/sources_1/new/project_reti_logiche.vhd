@@ -77,19 +77,6 @@ begin
         begin   
         nextState <= currState;
         
-        XorY <= nextXorY;
-        min_distance <= nextMinDistance;
-        outMask <= nextOutMask;
-        cntrPtr <= nextCntrPtr;
-        maskPtr <= nextMaskPtr;
-        Xp <= nextXp;
-        Yp <= nextYp;
-        Xc <= nextXc;
-        Yc <= nextYc;
-        distances <= nextDistances;
-        prevState <= nextPrevState;
-        bitMask <= nextBitMask;
-        distance <= nextDistance;
         
         o_address <= std_logic_vector(to_unsigned(cntrPtr,16));   
         o_data <= "00000000";
@@ -109,6 +96,7 @@ begin
         nextDistances <= distances;
         nextBitMask <= bitMask;
         nextDistance <= distance;
+        nextPrevState <= prevState;
         
             case currState is                                
                 when BEGINNER =>
@@ -136,7 +124,7 @@ begin
                     
                 when RAM_WAIT =>
                     o_en <= '1';
-                    nextPrevState <= prevState;
+                    --nextPrevState <= prevState;
                     if (prevState = RST or prevState = BEGIN_COMPUTE) then
                         nextState <= SAVE;
                         o_address <= std_logic_vector(to_unsigned(cntrPtr,16)); 
@@ -159,7 +147,7 @@ begin
                     end if;
                     o_address <= std_logic_vector(to_unsigned(cntrPtr,16));
                     nextState <= RAM_WAIT;
-                    nextPrevState <= prevState;
+                    --nextPrevState <= prevState;
                 
                 when SAVE =>                   
                     if prevState = RST then 
@@ -167,7 +155,7 @@ begin
                             nextXp <= signed('0' & i_data);
                             nextXorY <= 1;
                             nextState <= READ;
-                            nextPrevState <= prevState; 
+                            --nextPrevState <= prevState; 
                         elsif XorY = 1 then
                             nextYp <= signed('0' & i_data);
                             nextXorY <= 0;
@@ -179,7 +167,7 @@ begin
                             nextBitMask <= i_data;
                             nextXorY <= 0;
                             nextState <= READ;
-                            nextPrevState <= prevState; 
+                            --nextPrevState <= prevState; 
                         end if;              
                     elsif prevState = BEGIN_COMPUTE then
                         if XorY = 0 then
@@ -192,7 +180,7 @@ begin
                             nextState <= COMPUTE;
                         end if;                
                         nextCntrPtr <= cntrPtr + 1;
-                        nextPrevState <= prevState; 
+                        --nextPrevState <= prevState; 
                     end if;
                 
                 when BEGIN_COMPUTE => 
@@ -227,12 +215,12 @@ begin
                     end if;
                 
                 when COMPARE =>
-                    nextPrevState <= prevState; 
+                    --nextPrevState <= prevState; 
                     for i in 0 to 7 loop
                         if distances(i) = min_distance then
-                            outMask(i) <= '1';
+                            nextOutMask(i) <= '1';
                         else
-                            outMask(i) <= '0';
+                            nextOutMask(i) <= '0';
                         end if;
                     end loop;
                     nextState <= WRITE;
@@ -243,7 +231,7 @@ begin
                     o_data <= outMask;
                     nextCntrPtr <= 19;
                     o_address <= std_logic_vector(to_unsigned(nextCntrPtr,16));
-                    nextPrevState <= currState;
+                    --nextPrevState <= currState;
                     nextState <= RAM_WAIT;
                                     
                 when FINAL =>
@@ -254,7 +242,7 @@ begin
                     else
                         nextState <= currState;
                     end if;
-                    nextPrevState <= prevState; 
+                    --nextPrevState <= prevState; 
             end case;                
     end process;
     state: process( i_clk )
@@ -263,7 +251,21 @@ begin
             if( i_rst = '1' ) then
                 currState <= BEGINNER;
             else
-                currState <= nextState;                                  
+                currState <= nextState;
+                XorY <= nextXorY;
+                min_distance <= nextMinDistance;
+                outMask <= nextOutMask;
+                cntrPtr <= nextCntrPtr;
+                maskPtr <= nextMaskPtr;
+                Xp <= nextXp;
+                Yp <= nextYp;
+                Xc <= nextXc;
+                Yc <= nextYc;
+                distances <= nextDistances;
+                prevState <= nextPrevState;
+                bitMask <= nextBitMask;
+                distance <= nextDistance;
+                prevState <= nextPrevState;                                  
             end if;
         end if;
     end process; 
