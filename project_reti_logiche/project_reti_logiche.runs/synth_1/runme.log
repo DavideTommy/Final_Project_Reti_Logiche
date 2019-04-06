@@ -1,0 +1,406 @@
+
+*** Running vivado
+    with args -log project_reti_logiche.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source project_reti_logiche.tcl
+
+
+****** Vivado v2018.3 (64-bit)
+  **** SW Build 2405991 on Thu Dec  6 23:38:27 MST 2018
+  **** IP Build 2404404 on Fri Dec  7 01:43:56 MST 2018
+    ** Copyright 1986-2018 Xilinx, Inc. All Rights Reserved.
+
+source project_reti_logiche.tcl -notrace
+Command: synth_design -top project_reti_logiche -part xc7a200tfbg484-1
+Starting synth_design
+Attempting to get a license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7a200t'
+INFO: Launching helper process for spawning children vivado processes
+INFO: Helper process launched with PID 2024 
+---------------------------------------------------------------------------------
+Starting Synthesize : Time (s): cpu = 00:00:02 ; elapsed = 00:00:02 . Memory (MB): peak = 348.895 ; gain = 99.078
+---------------------------------------------------------------------------------
+INFO: [Synth 8-638] synthesizing module 'project_reti_logiche' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:59]
+INFO: [Synth 8-256] done synthesizing module 'project_reti_logiche' (1#1) [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:59]
+---------------------------------------------------------------------------------
+Finished Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 404.738 ; gain = 154.922
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Constraint Validation : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 404.738 ; gain = 154.922
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Loading Part and Timing Information
+---------------------------------------------------------------------------------
+Loading part: xc7a200tfbg484-1
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 404.738 ; gain = 154.922
+---------------------------------------------------------------------------------
+INFO: [Device 21-403] Loading part xc7a200tfbg484-1
+INFO: [Synth 8-802] inferred FSM for state register 'currState_reg' in module 'project_reti_logiche'
+INFO: [Synth 8-5545] ROM "nextXorY" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextXorY" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5544] ROM "nextXorY" won't be mapped to Block RAM because address size (4) smaller than threshold (5)
+INFO: [Synth 8-5545] ROM "nextXorY" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextMaskPtr" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextXp" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextYc" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[7]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[7]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[6]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[6]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[5]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[5]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[4]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[4]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[3]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[3]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[2]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[2]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5544] ROM "nextState" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5545] ROM "nextState" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5544] ROM "nextState" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+INFO: [Synth 8-5545] ROM "nextState" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5544] ROM "nextState" won't be mapped to Block RAM because address size (1) smaller than threshold (5)
+---------------------------------------------------------------------------------------------------
+                   State |                     New Encoding |                Previous Encoding 
+---------------------------------------------------------------------------------------------------
+                beginner |                       0000000001 |                             0001
+                     rst |                       0000000010 |                             0000
+                    read |                       0000000100 |                             0011
+                ram_wait |                       0000001000 |                             0010
+                    save |                       0000010000 |                             0100
+                 compute |                       0000100000 |                             0110
+           begin_compute |                       0001000000 |                             0101
+                 compare |                       0010000000 |                             0111
+                   write |                       0100000000 |                             1000
+                   final |                       1000000000 |                             1001
+---------------------------------------------------------------------------------------------------
+INFO: [Synth 8-3354] encoded FSM with state register 'currState_reg' using encoding 'one-hot' in module 'project_reti_logiche'
+WARNING: [Synth 8-327] inferring latch for variable 'nextCntrPtr_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:83]
+WARNING: [Synth 8-327] inferring latch for variable 'nextOutMask_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:82]
+WARNING: [Synth 8-327] inferring latch for variable 'nextPrevState_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:90]
+WARNING: [Synth 8-327] inferring latch for variable 'nextXorY_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:80]
+WARNING: [Synth 8-327] inferring latch for variable 'nextMaskPtr_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:84]
+WARNING: [Synth 8-327] inferring latch for variable 'nextBitMask_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:91]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistance_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:92]
+WARNING: [Synth 8-327] inferring latch for variable 'nextMinDistance_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:81]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[0]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[1]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[2]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[3]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[4]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[5]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[6]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextDistances_reg[7]' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:89]
+WARNING: [Synth 8-327] inferring latch for variable 'nextYp_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:86]
+WARNING: [Synth 8-327] inferring latch for variable 'nextYc_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:88]
+WARNING: [Synth 8-327] inferring latch for variable 'nextXp_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:85]
+WARNING: [Synth 8-327] inferring latch for variable 'nextXc_reg' [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:87]
+---------------------------------------------------------------------------------
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:04 ; elapsed = 00:00:04 . Memory (MB): peak = 432.336 ; gain = 182.520
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start RTL Component Statistics 
+---------------------------------------------------------------------------------
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 3     
+	   3 Input      9 Bit       Adders := 2     
+	   2 Input      9 Bit       Adders := 3     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	  10 Input     32 Bit        Muxes := 3     
+	  10 Input     10 Bit        Muxes := 1     
+	   2 Input     10 Bit        Muxes := 7     
+	   3 Input     10 Bit        Muxes := 1     
+	  10 Input      9 Bit        Muxes := 3     
+	   2 Input      9 Bit        Muxes := 2     
+	  10 Input      8 Bit        Muxes := 2     
+	   3 Input      6 Bit        Muxes := 1     
+	  10 Input      4 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 29    
+	   3 Input      1 Bit        Muxes := 3     
+	   5 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 2     
+	  10 Input      1 Bit        Muxes := 22    
+---------------------------------------------------------------------------------
+Finished RTL Component Statistics 
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start RTL Hierarchical Component Statistics 
+---------------------------------------------------------------------------------
+Hierarchical RTL Component report 
+Module project_reti_logiche 
+Detailed RTL Component Info : 
++---Adders : 
+	   2 Input     32 Bit       Adders := 3     
+	   3 Input      9 Bit       Adders := 2     
+	   2 Input      9 Bit       Adders := 3     
++---Muxes : 
+	   2 Input     32 Bit        Muxes := 1     
+	  10 Input     32 Bit        Muxes := 3     
+	  10 Input     10 Bit        Muxes := 1     
+	   2 Input     10 Bit        Muxes := 7     
+	   3 Input     10 Bit        Muxes := 1     
+	  10 Input      9 Bit        Muxes := 3     
+	   2 Input      9 Bit        Muxes := 2     
+	  10 Input      8 Bit        Muxes := 2     
+	   3 Input      6 Bit        Muxes := 1     
+	  10 Input      4 Bit        Muxes := 2     
+	   2 Input      3 Bit        Muxes := 1     
+	   2 Input      2 Bit        Muxes := 2     
+	   2 Input      1 Bit        Muxes := 29    
+	   3 Input      1 Bit        Muxes := 3     
+	   5 Input      1 Bit        Muxes := 1     
+	   4 Input      1 Bit        Muxes := 2     
+	  10 Input      1 Bit        Muxes := 22    
+---------------------------------------------------------------------------------
+Finished RTL Hierarchical Component Statistics
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Part Resource Summary
+---------------------------------------------------------------------------------
+Part Resources:
+DSPs: 740 (col length:100)
+BRAMs: 730 (col length: RAMB18 100 RAMB36 50)
+---------------------------------------------------------------------------------
+Finished Part Resource Summary
+---------------------------------------------------------------------------------
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Cross Boundary and Area Optimization
+---------------------------------------------------------------------------------
+Warning: Parallel synthesis criteria is not met 
+INFO: [Synth 8-5545] ROM "nextState0" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextState" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextState" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextXorY" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextXorY" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextXorY" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "O30" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextMaskPtr" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "in171" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextXp" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[7]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[7]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[6]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[6]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[5]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[5]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[4]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[4]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[3]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[3]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[2]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[2]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[1]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances_reg[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-5545] ROM "nextDistances[0]" won't be mapped to RAM because address size (32) is larger than maximum supported(25)
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\nextXc_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\nextXp_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\nextYc_reg[8] )
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\nextYp_reg[8] )
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[31]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[30]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[29]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[28]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[27]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[26]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[25]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[24]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[23]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[22]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[21]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[20]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[19]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[18]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[17]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[16]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[15]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[14]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[13]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[12]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[11]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[10]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[9]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[8]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[7]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[6]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[5]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[4]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3886] merging instance 'nextXorY_reg[3]' (LD) to 'nextXorY_reg[2]'
+INFO: [Synth 8-3333] propagating constant 0 across sequential element (\nextXorY_reg[2] )
+WARNING: [Synth 8-3332] Sequential element (nextXorY_reg[2]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (nextYp_reg[8]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (nextYc_reg[8]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (nextXp_reg[8]) is unused and will be removed from module project_reti_logiche.
+WARNING: [Synth 8-3332] Sequential element (nextXc_reg[8]) is unused and will be removed from module project_reti_logiche.
+---------------------------------------------------------------------------------
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+No constraint files found.
+---------------------------------------------------------------------------------
+Start Timing Optimization
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Timing Optimization : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Technology Mapping
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Technology Mapping : Time (s): cpu = 00:00:08 ; elapsed = 00:00:07 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Flattening Before IO Insertion
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Final Netlist Cleanup
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished IO Insertion : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+
+Report Check Netlist: 
++------+------------------+-------+---------+-------+------------------+
+|      |Item              |Errors |Warnings |Status |Description       |
++------+------------------+-------+---------+-------+------------------+
+|1     |multi_driven_nets |      0|        0|Passed |Multi driven nets |
++------+------------------+-------+---------+-------+------------------+
+---------------------------------------------------------------------------------
+Start Renaming Generated Instances
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+
+Report RTL Partitions: 
++-+--------------+------------+----------+
+| |RTL Partition |Replication |Instances |
++-+--------------+------------+----------+
++-+--------------+------------+----------+
+---------------------------------------------------------------------------------
+Start Rebuilding User Hierarchy
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Ports
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Handling Custom Attributes
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Renaming Generated Nets
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start Writing Synthesis Report
+---------------------------------------------------------------------------------
+
+Report BlackBoxes: 
++-+--------------+----------+
+| |BlackBox name |Instances |
++-+--------------+----------+
++-+--------------+----------+
+
+Report Cell Usage: 
++------+-------+------+
+|      |Cell   |Count |
++------+-------+------+
+|1     |BUFG   |     4|
+|2     |CARRY4 |    47|
+|3     |LUT1   |    32|
+|4     |LUT2   |    71|
+|5     |LUT3   |    48|
+|6     |LUT4   |    65|
+|7     |LUT5   |    35|
+|8     |LUT6   |    55|
+|9     |MUXF7  |     1|
+|10    |FDRE   |     9|
+|11    |FDSE   |     1|
+|12    |LD     |   208|
+|13    |IBUF   |    11|
+|14    |OBUF   |    27|
++------+-------+------+
+
+Report Instance Areas: 
++------+---------+-------+------+
+|      |Instance |Module |Cells |
++------+---------+-------+------+
+|1     |top      |       |   614|
++------+---------+-------+------+
+---------------------------------------------------------------------------------
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+---------------------------------------------------------------------------------
+Synthesis finished with 0 errors, 0 critical warnings and 25 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+Synthesis Optimization Complete : Time (s): cpu = 00:00:09 ; elapsed = 00:00:08 . Memory (MB): peak = 615.559 ; gain = 365.742
+INFO: [Project 1-571] Translating synthesized netlist
+INFO: [Netlist 29-17] Analyzing 256 Unisim elements for replacement
+INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 703.082 ; gain = 0.000
+INFO: [Project 1-111] Unisim Transformation Summary:
+  A total of 208 instances were transformed.
+  LD => LDCE: 208 instances
+
+INFO: [Common 17-83] Releasing license: Synthesis
+101 Infos, 25 Warnings, 0 Critical Warnings and 0 Errors encountered.
+synth_design completed successfully
+synth_design: Time (s): cpu = 00:00:13 ; elapsed = 00:00:14 . Memory (MB): peak = 703.082 ; gain = 453.266
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 703.082 ; gain = 0.000
+WARNING: [Constraints 18-5210] No constraints selected for write.
+Resolution: This message can indicate that there are no constraints for the design, or it can indicate that the used_in flags are set such that the constraints are ignored. This later case is used when running synth_design to not write synthesis constraints to the resulting checkpoint. Instead, project constraints are read when the synthesized design is opened.
+INFO: [Common 17-1381] The checkpoint 'C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.runs/synth_1/project_reti_logiche.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file project_reti_logiche_utilization_synth.rpt -pb project_reti_logiche_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Sat Apr  6 10:46:36 2019...

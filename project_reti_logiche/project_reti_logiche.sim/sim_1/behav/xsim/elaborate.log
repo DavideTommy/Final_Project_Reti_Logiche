@@ -1,0 +1,7 @@
+Vivado Simulator 2018.3
+Copyright 1986-1999, 2001-2018 Xilinx, Inc. All Rights Reserved.
+Running: C:/Xilinx/Vivado/2018.3/bin/unwrapped/win64.o/xelab.exe -wto 089aa393faa940e0ba724dc43048e38e --incr --debug typical --relax --mt 2 -L xil_defaultlib -L secureip --snapshot project_tb_behav xil_defaultlib.project_tb -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-1360] signal cannot be unconstrained [C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd:69]
+ERROR: [XSIM 43-3321] Static elaboration of top level VHDL design unit project_tb in library work failed.
