@@ -54,8 +54,8 @@ architecture Behavioral of project_reti_logiche is
     signal currState, nextState, prevState, nextPrevState : STATO;
     signal bitMask,nextBitMask: std_logic_vector(7 downto 0);
     signal Xp,nextXp,Yp,nextYp,Xc,nextXc,Yc,nextYc : signed(8 downto 0);
-    signal maskPtr,nextMaskPtr : integer;
-    signal cntrPtr,nextCntrPtr : integer;
+    signal maskPtr,nextMaskPtr : integer := 7;
+    signal cntrPtr,nextCntrPtr : integer := 1;
     signal distance, nextDistance : unsigned(8 downto 0);
     signal outMask, nextOutMask : std_logic_vector(7 downto 0);                
 begin
@@ -65,11 +65,6 @@ begin
     
         begin   
         nextState <= currState;
-        o_address <= std_logic_vector(to_unsigned(cntrPtr,16));   
-        o_data <= "00000000";
-        o_done <= '0';
-        o_en <= '1';
-        o_we <= '0';
         
         nextMaskPtr <= maskPtr;
         nextCntrPtr <= cntrPtr;
@@ -84,13 +79,19 @@ begin
         nextDistance <= distance;
         nextPrevState <= prevState;
         
+        o_address <= std_logic_vector(to_unsigned(cntrPtr,16));   
+        o_data <= outMask;
+        o_done <= '0';
+        o_en <= '1';
+        o_we <= '0';
+        
         case currState is
             when RST =>
                 o_en <= '0';
                 nextMaskPtr <= 7;
                 nextCntrPtr <= 1;
-                nextDistances <= (others => to_unsigned(510,9));
-                nextMinDistance <= to_unsigned(510,9);
+                nextDistances <= (others => to_unsigned(511,9));
+                nextMinDistance <= to_unsigned(511,9);
                 nextXp <= (others => '0');
                 nextYp <= (others => '0');
                 nextXc <= (others => '0');
@@ -133,51 +134,56 @@ begin
                 nextCntrPtr <= cntrPtr + 1;
                 nextPrevState <= S6;
                 nextState <= S9;
-                o_address <= std_logic_vector(to_unsigned(nextCntrPtr,16));
+                o_address <= std_logic_vector(to_unsigned(cntrPtr+1,16));
             when S6 =>
                 nextYp <= signed('0' & i_data);
                 nextDistance <= unsigned(abs(Xc - Xp)+abs(Yc - nextYp));
-                if bitMask(maskPtr) = '1' then
+                if bitMask(7-maskPtr) = '1' then
                     if nextDistance < min_distance then
                         nextMinDistance <= nextDistance;              
                     end if;
                 else
-                    nextDistance <= to_unsigned(510,9); 
+                    nextDistance <= to_unsigned(511,9); 
                 end if;
                 nextDistances(maskPtr) <= nextDistance;        
                 nextMaskPtr <= maskPtr - 1;
                 nextCntrPtr <= cntrPtr + 1;
-                if nextCntrPtr = 17 then
+                if cntrPtr = 16 then
                     o_en <= '0';
                     nextState <= S7; 
                 else
-                    nextPrevState <= S6;
+                    nextPrevState <= S5;
                     nextState <= S9;
                 end if;
-                o_address <= std_logic_vector(to_unsigned(nextCntrPtr,16));
+                o_address <= std_logic_vector(to_unsigned(cntrPtr+1,16));
             when S7 =>
+                --report integer'image(to_integer(min_distance));
                 for i in 0 to 7 loop
-                    if distances(i) = min_distance then
+                    if distances(7-i) = min_distance then
                         nextOutMask(i) <= '1';
                     else
                         nextOutMask(i) <= '0';
                     end if;
+                    --report integer'image(i) & " - " & integer'image(to_integer(distances(i)));
                 end loop;
                 o_we <= '1';
                 o_data <= nextOutMask;
+                nextCntrPtr <= 19;
                 o_address <= std_logic_vector(to_unsigned(19,16));
                 nextPrevState <= S8;
                 nextState <= S9;
             when S8 =>
                 o_done <= '1';
+                o_en <= '0';
                 nextState <= S10;
             when S9 =>
-                if prevState = S8 then
+                if cntrPtr = 19 then
                     o_we <= '1';
                 end if;
                 o_address <= std_logic_vector(to_unsigned(cntrPtr,16));
                 nextState <= prevState;
             when S10 =>
+                o_en <= '0';
                 if i_start = '0' then
                     nextState <= S0;
                 else
