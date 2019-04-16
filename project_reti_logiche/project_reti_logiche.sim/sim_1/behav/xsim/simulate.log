@@ -1,0 +1,13 @@
+Vivado Simulator 2018.3
+Time resolution is 1 ps
+Note: 0
+Time: 4450 ns  Iteration: 2  Process: /project_tb/UUT/delta_lambda  File: C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd
+Note: 0
+Time: 4450 ns  Iteration: 3  Process: /project_tb/UUT/delta_lambda  File: C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd
+Note: 0
+Time: 4500 ns  Iteration: 1  Process: /project_tb/UUT/delta_lambda  File: C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd
+Note: 0
+Time: 4550 ns  Iteration: 1  Process: /project_tb/UUT/delta_lambda  File: C:/Users/NB-Rnd01/Final_Project_Reti_Logiche/project_reti_logiche/project_reti_logiche.srcs/sources_1/new/project_reti_logiche.vhd
+Failure: Simulation Ended!, TEST PASSATO
+Time: 4750 ns  Iteration: 3  Process: /project_tb/test  File: C:/Users/NB-Rnd01/Downloads/tb_centroide coincidente.vhd
+$finish called at time : 4750 ns : File "C:/Users/NB-Rnd01/Downloads/tb_centroide coincidente.vhd" Line 122

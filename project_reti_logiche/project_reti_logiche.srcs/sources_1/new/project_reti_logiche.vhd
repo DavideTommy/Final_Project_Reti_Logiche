@@ -157,7 +157,7 @@ begin
                 end if;
                 o_address <= std_logic_vector(to_unsigned(cntrPtr+1,16));
             when S7 =>
-                --report integer'image(to_integer(min_distance));
+                report integer'image(to_integer(min_distance));
                 for i in 0 to 7 loop
                     if distances(7-i) = min_distance then
                         nextOutMask(i) <= '1';
