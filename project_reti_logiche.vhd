@@ -50,7 +50,7 @@ architecture Behavioral of project_reti_logiche is
     type STATO is (RST,S0,S1,S2,S3,S4,S5,S6,S7,S8,S9,S10);
     type D_ARRAY is array (7 downto 0) of unsigned(8 downto 0);
     signal distances, nextDistances : D_ARRAY;
-    signal min_distance, nextMinDistance : unsigned(8 downto 0); --ho calcolato il quadrato
+    signal minDistance, nextMinDistance : unsigned(8 downto 0); --ho calcolato il quadrato
     signal currState, nextState, prevState, nextPrevState : STATO;
     signal bitMask,nextBitMask: std_logic_vector(7 downto 0);
     signal Xp,nextXp,Yp,nextYp,Xc,nextXc,Yc,nextYc : signed(8 downto 0);
@@ -60,7 +60,7 @@ architecture Behavioral of project_reti_logiche is
     signal outMask, nextOutMask : std_logic_vector(7 downto 0);                
 begin
     delta_lambda : process(currState, nextState, i_start, i_clk,cntrPtr,i_data,bitMask,maskPtr,Xc,Xp,Yc,Yp,distance,
-    min_distance,distances, outMask,prevState,nextMinDistance, nextOutMask,nextCntrPtr,nextMaskPtr,nextXp,nextYp,
+    minDistance,distances, outMask,prevState,nextMinDistance, nextOutMask,nextCntrPtr,nextMaskPtr,nextXp,nextYp,
     nextXc, nextYc, nextDistances, nextPrevState,nextBitMask,nextDistance)
     
         begin   
@@ -68,7 +68,7 @@ begin
         
         nextMaskPtr <= maskPtr;
         nextCntrPtr <= cntrPtr;
-        nextMinDistance <= min_distance;
+        nextMinDistance <= minDistance;
         nextXp <= Xp;
         nextYp <= Yp;
         nextXc <= Xc;
@@ -139,7 +139,7 @@ begin
                 nextYp <= signed('0' & i_data);
                 nextDistance <= unsigned(abs(Xc - Xp)+abs(Yc - nextYp));
                 if bitMask(7-maskPtr) = '1' then
-                    if nextDistance < min_distance then
+                    if nextDistance < minDistance then
                         nextMinDistance <= nextDistance;              
                     end if;
                 else
@@ -157,9 +157,9 @@ begin
                 end if;
                 o_address <= std_logic_vector(to_unsigned(cntrPtr+1,16));
             when S7 =>
-                --report integer'image(to_integer(min_distance));
+                report integer'image(to_integer(minDistance));
                 for i in 0 to 7 loop
-                    if distances(7-i) = min_distance then
+                    if distances(7-i) = minDistance then
                         nextOutMask(i) <= '1';
                     else
                         nextOutMask(i) <= '0';
@@ -198,7 +198,7 @@ begin
                 currState <= S0;
             else
                 currState <= nextState;
-                min_distance <= nextMinDistance;
+                minDistance <= nextMinDistance;
                 outMask <= nextOutMask;
                 cntrPtr <= nextCntrPtr;
                 maskPtr <= nextMaskPtr;
