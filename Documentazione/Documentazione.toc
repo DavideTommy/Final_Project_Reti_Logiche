@@ -1,3 +1,16 @@
 \babel@toc {italian}{}
 \babel@toc {italian}{}
-\contentsline {section}{\numberline {1}Introduzione}{3}% 
+\contentsline {section}{\numberline {1}Descrizione del problema}{3}% 
+\contentsline {section}{\numberline {2}Specifiche del progetto}{3}% 
+\contentsline {subsection}{\numberline {2.1}Interfaccia del componente}{3}% 
+\contentsline {subsection}{\numberline {2.2}La RAM}{4}% 
+\contentsline {subsection}{\numberline {2.3}Il Clock}{4}% 
+\contentsline {subsection}{\numberline {2.4}Sintesi e simulazione}{4}% 
+\contentsline {section}{\numberline {3}Scelte progettuali}{5}% 
+\contentsline {subsection}{\numberline {3.1}Segnali}{5}% 
+\contentsline {subsection}{\numberline {3.2}Stati}{6}% 
+\contentsline {subsection}{\numberline {3.3}Processi}{7}% 
+\contentsline {section}{\numberline {4}Test creati e relativi risultati}{8}% 
+\contentsline {subsection}{\numberline {4.1}Test creati}{8}% 
+\contentsline {subsection}{\numberline {4.2}Risultati ottenuti}{8}% 
+\contentsline {section}{\numberline {5}Risultati sintesi}{8}% 
