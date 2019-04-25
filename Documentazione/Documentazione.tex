@@ -2,6 +2,8 @@
 
 \usepackage[utf8]{inputenc}
 \usepackage[italian]{babel}
+\usepackage{graphicx}
+\usepackage{float}
 
 \title{Final Project Reti Logiche 2019}
 \author{Lichinchi Federico, Lorenzi Davide}
@@ -46,6 +48,7 @@ La macchina deve funzionare con un clock di 100 ns.
 \subsection{Sintesi e simulazione}
 Il codice VHDL non deve presentare errori di compilazione. Il componente dev'essere almeno descritto e simulabile correttamente in pre-sintesi. Per raggiungere l'eccellenza nella risoluzione del progetto si richiede che il componente sia sintetizzabile e simulabile anche in post-sintesi.
 
+
 \section{Scelte progettuali}
 Per la risoluzione del problema assegnato si è deciso di procedere con l'ideazione e l'implementazione di una macchina a stati. La macchina consta 12 stati, numerati da 0 a 10 e uno stato di reset. 
 Per il calcolo della distanza è stata utilizzata la formula della "Manhattan distance".
@@ -53,6 +56,7 @@ Per il calcolo della distanza è stata utilizzata la formula della "Manhattan di
 La macchina è classificabile come macchina di Moore in quanto le uscite dipendono solamente dallo stato corrente.
 
 Onde evitare errori in lettura o in scrittura dei dati durante la Timing Simulation, si è deciso di attendere un interno ciclo di clock prima di ricevere o scrivere il dato richiesto, ottenendo informazioni solo sul fronte di salita.
+
 \subsection{Segnali}
 Come prima cosa, son stati definiti due tipologie di segnale:
 \begin{itemize}
@@ -104,7 +108,8 @@ La macchina utilizza due processi in modo asincrono:
 \section{Test creati e relativi risultati}
 
 \subsection{Test creati}
-Per verificare la corretta descrizione del componente abbiamo proceduto alla creazione di 5 test bench (oltre a quello fornito dal docente) in cui sono presenti i limite della macchina:
+Per verificare la corretta descrizione del componente abbiamo proceduto alla creazione di 5 test bench (oltre a quello fornito dal docente) in cui sono stati testati i limiti della macchina:
+
 \begin{enumerate}
 \item \textbf{tb\_bitmask\_nulla}: la bit-mask è composta tutta da '0';
 \item \textbf{tb\_centroide\_coincidente}: un centroide ha le stesse coordinate del punto dal valutare;
@@ -113,8 +118,45 @@ Per verificare la corretta descrizione del componente abbiamo proceduto alla cre
 \item \textbf{tb\_distanze\_incrementali}: ogni centroide dista a una distanza minore dal punto rispetto al successivo centroide da considerare.
 \end{enumerate}
 
+
+Come modello di riferimento per la creazione dei test bench è stato utilizzato il \textbf{tb\_salice\_reti\_logiche} che ha permesso un'efficiente preparazione dei test e una totale assenza di errori nella descrizione della RAM e del componente. 
+
+La procedura di testing applicata è stata di black-box in quanto i test sono stati generati a partire dalle specifiche fornite e non dal codice descrittivo VHDL prodotto.
+
+
+
+\newpage
 \subsection{Risultati ottenuti}
 Qui sotto sono riportati le schermate delle waveform ottenute e della stampa "TEST PASSATO" nella console al termine della "Run All" del progetto in Timing Simulation, per ogni test bench usato.
+
+\begin{enumerate}
+\item \textbf{tb\_bitmask\_nulla}: la bit-mask è composta tutta da '0';
+
+\includegraphics[scale=0.32]{images/tb_bitmask_nulla}
+
+\item \textbf{tb\_centroide\_coincidente}: un centroide ha le stesse coordinate del punto dal valutare;
+
+\includegraphics[scale=0.32]{images/tb_centroide_coincidente}
+
+\newpage
+\item \textbf{tb\_centroidi\_tutti\_uguali}: tutti i centroidi da esaminare hanno le stesse coordinate;
+
+\includegraphics[scale=0.32]{images/tb_centroidi_tutti_uguali}
+
+\item \textbf{tb\_distanza\_massima}: un centroide si trova a distanza massima dal punto da valutare (punto e centroide in angoli opposti della "griglia" della RAM);
+
+\includegraphics[scale=0.32]{images/tb_distanza_massima}
+
+\newpage
+\item \textbf{tb\_distanze\_incrementali}: ogni centroide dista a una distanza minore dal punto rispetto al successivo centroide da considerare.
+
+\includegraphics[scale=0.32]{images/tb_distanze_incrementali}
+
+\item \textbf{tb\_salice\_reti\_logiche}: test bench fornito dal docente.
+
+\includegraphics[scale=0.32]{images/tb_salice_reti_logiche}
+
+\end{enumerate}
 
 \section{Risultati sintesi}
 Il componente descritto viene sintetizzato con successo, senza warning significanti che possono compromettere il corretto funzionamento (no inferring latch). Come dimostrato dalla sezione precedente, le simulazioni hanno dato esito positivo sia in pre-sintesi sia in post-sintesi (con timing).
